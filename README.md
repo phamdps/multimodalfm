@@ -1,35 +1,29 @@
-```markdown
 # Multimodal Time-Series Foundation Model (M-TSFM)
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A modular research framework for building and training foundation models that integrate diverse modalities—**numerical time series, text, images, and exogenous data**—for robust, zero-shot forecasting.
 
 ---
 
 ## 📑 Table of Contents
-1. [Overview](#-overview)
-2. [Architecture](#-architecture)
-3. [Interactive Demos](#-interactive-demos)
-4. [Project Structure](#-project-structure)
-5. [Installation](#-installation)
-6. [Configuration & Usage](#-configuration--usage)
-7. [Benchmarking](#-benchmarking)
-8. [References](#-references)
-9. [License](#-license)
+
+1. [Overview](https://www.google.com/search?q=%23-overview)
+2. [Architecture](https://www.google.com/search?q=%23-architecture)
+3. [Project Structure](https://www.google.com/search?q=%23-project-structure)
+4. [Installation](https://www.google.com/search?q=%23-installation)
+5. [Configuration & Usage](https://www.google.com/search?q=%23-configuration--usage)
+6. [Benchmarking](https://www.google.com/search?q=%23-benchmarking)
+7. [References](https://www.google.com/search?q=%23-references)
+8. [License](https://www.google.com/search?q=%23-license)
 
 ---
 
 ## 🧠 Overview
+
 M-TSFM bridges the "modality gap" in temporal forecasting. By utilizing **Cross-Modal Attention**, our model aligns heterogeneous data sources, allowing for zero-shot forecasting on unseen datasets without requiring task-specific retraining.
 
 ## 🏗 Architecture
-Our framework employs a modular encoder-decoder approach to fuse multimodal inputs:
 
-<details>
-<summary>Click to expand architectural diagram</summary>
+Our framework employs a modular encoder-decoder approach to fuse multimodal inputs:
 
 ```mermaid
 graph LR
@@ -53,23 +47,25 @@ graph LR
 
 ```
 
+---
+
 ## 📂 Project Structure
 
 ```bash
 .
-├── data/                # Dataset storage and pre-processing
-├── models/              # Checkpoints and model configuration files
-├── notebooks/           # Exploratory analysis and model demos
-├── scripts/             # Execution scripts (train.py, eval.py)
-├── src/                 # Core source code (The "Brain")
-│   ├── encoders.py      # Modality-specific encoders (TS, Text, Image)
-│   ├── fusion.py        # Cross-attention / Fusion modules
-│   └── utils.py         # Metrics, logging, and data utilities
-├── tests/               # Unit tests for component verification
-├── .gitignore           # Standard git exclusion patterns
-├── LICENSE              # MIT License
-├── requirements.txt     # Project dependency list
-└── README.md            # Project documentation
+├── data/               # Dataset storage and pre-processing
+├── models/             # Checkpoints and model configuration files
+├── notebooks/          # Exploratory analysis and model demos
+├── scripts/            # Execution scripts (train.py, eval.py)
+├── src/                # Core source code (The "Brain")
+│   ├── encoders.py     # Modality-specific encoders (TS, Text, Image)
+│   ├── fusion.py       # Cross-attention / Fusion modules
+│   └── utils.py        # Metrics, logging, and data utilities
+├── tests/              # Unit tests for component verification
+├── .gitignore          # Standard git exclusion patterns
+├── LICENSE             # MIT License
+├── requirements.txt    # Project dependency list
+└── README.md           # Project documentation
 
 ```
 
@@ -79,7 +75,7 @@ Ensure you have Python 3.10+ installed.
 
 ```bash
 # 1. Clone the repository
-git clone [https://github.com/phamdps/multimodalfm.git](https://github.com/phamdps/multimodalfm.git)
+git clone https://github.com/phamdps/multimodalfm.git
 cd multimodalfm
 
 # 2. Setup virtual environment
@@ -106,7 +102,7 @@ import torch
 model = CrossModalFusion(ts_dim=1, context_dim=128, embed_dim=64)
 
 # Forward pass example
-ts_input = torch.randn(32, 50, 1)   # (Batch, SeqLen, Dim)
+ts_input = torch.randn(32, 50, 1)    # (Batch, SeqLen, Dim)
 ctx_input = torch.randn(32, 10, 128) # (Batch, CtxLen, ContextDim)
 
 output = model(ts_input, ctx_input)
