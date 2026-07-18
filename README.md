@@ -1,29 +1,35 @@
+```markdown
 # Multimodal Time-Series Foundation Model (M-TSFM)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A modular research framework for building and training foundation models that integrate diverse modalities—**numerical time series, text, images, and exogenous data**—for robust, zero-shot forecasting.
 
 ---
 
 ## 📑 Table of Contents
-
-1. [Overview](https://www.google.com/search?q=%23-overview)
-2. [Architecture](https://www.google.com/search?q=%23-architecture)
-3. [Project Structure](https://www.google.com/search?q=%23-project-structure)
-4. [Installation](https://www.google.com/search?q=%23-installation)
-5. [Configuration](https://www.google.com/search?q=%23-configuration)
-6. [Benchmarking](https://www.google.com/search?q=%23-benchmarking)
-7. [References](https://www.google.com/search?q=%23-references)
-8. [License](https://www.google.com/search?q=%23-license)
+1. [Overview](#-overview)
+2. [Architecture](#-architecture)
+3. [Interactive Demos](#-interactive-demos)
+4. [Project Structure](#-project-structure)
+5. [Installation](#-installation)
+6. [Configuration & Usage](#-configuration--usage)
+7. [Benchmarking](#-benchmarking)
+8. [References](#-references)
+9. [License](#-license)
 
 ---
 
 ## 🧠 Overview
-
 M-TSFM bridges the "modality gap" in temporal forecasting. By utilizing **Cross-Modal Attention**, our model aligns heterogeneous data sources, allowing for zero-shot forecasting on unseen datasets without requiring task-specific retraining.
 
 ## 🏗 Architecture
-
 Our framework employs a modular encoder-decoder approach to fuse multimodal inputs:
+
+<details>
+<summary>Click to expand architectural diagram</summary>
 
 ```mermaid
 graph LR
@@ -46,6 +52,17 @@ graph LR
     style G fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
 
 ```
+
+## ⚡ Interactive Demos
+
+We provide interactive performance dashboards hosted via GitHub Pages to visualize model behavior:
+
+| Dashboard | Description |
+| --- | --- |
+| **[Interactive Benchmark Results](https://phamdps.github.io/multimodalfm/results_demo.html)** | Browser-based Plotly charts for zoomable results. |
+| **[Live Training Metrics](https://wandb.ai/yourusername/your-project)** | Real-time experiment tracking via Weights & Biases. |
+
+---
 
 ## 📂 Project Structure
 
@@ -73,7 +90,7 @@ Ensure you have Python 3.10+ installed.
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/your-repo-name.git
+git clone [https://github.com/yourusername/your-repo-name.git](https://github.com/yourusername/your-repo-name.git)
 cd your-repo-name
 
 # 2. Setup virtual environment
@@ -86,14 +103,11 @@ pip install -r requirements.txt
 
 ```
 
-## ⚙️ Configuration
+## ⚙️ Configuration & Usage
 
-Configuration is managed via `config.yaml` located in the `models/` directory. Ensure your environment variables are set correctly:
+Configuration is managed via `config.yaml`. Update your `DATA_ROOT` and `CHECKPOINT_DIR` before running scripts.
 
-* `DATA_ROOT`: Path to your local dataset folder.
-* `CHECKPOINT_DIR`: Path where trained model weights are saved.
-
-### Quick Start Code
+### Quick Start
 
 ```python
 from src.fusion import CrossModalFusion
@@ -102,10 +116,9 @@ import torch
 # Initialize fusion module
 model = CrossModalFusion(ts_dim=1, context_dim=128, embed_dim=64)
 
-# Example: (Batch=32, SeqLen=50, Dim=1)
-ts_input = torch.randn(32, 50, 1)
-# Example: (Batch=32, CtxLen=10, Dim=128)
-ctx_input = torch.randn(32, 10, 128)
+# Forward pass example
+ts_input = torch.randn(32, 50, 1)   # (Batch, SeqLen, Dim)
+ctx_input = torch.randn(32, 10, 128) # (Batch, CtxLen, ContextDim)
 
 output = model(ts_input, ctx_input)
 print(f"Output shape: {output.shape}")
@@ -114,7 +127,7 @@ print(f"Output shape: {output.shape}")
 
 ## 📊 Benchmarking
 
-We support rigorous zero-shot evaluation on the **TIME** and **GIFT-Eval** benchmarks. To run evaluation:
+We support rigorous zero-shot evaluation on the **TIME** and **GIFT-Eval** benchmarks.
 
 ```bash
 python scripts/eval.py --benchmark TIME --data_path ./data/TIME
@@ -124,8 +137,6 @@ python scripts/eval.py --benchmark TIME --data_path ./data/TIME
 *Evaluations generate metrics including CRPS and MAPE, following established academic protocols.*
 
 ## 📚 References
-
-This project builds upon the following foundational research:
 
 1. **TIME Benchmark:** Qiao, Z., et al. (2026). *It's TIME: Towards the Next Generation of Time Series Forecasting Benchmarks.*
 2. **GIFT-Eval:** Salesforce AI Research. *A Benchmark for General Time Series Forecasting Model Evaluation.*
@@ -137,4 +148,13 @@ This project is licensed under the MIT License. See the [LICENSE](https://www.go
 
 ---
 
+*Created with ❤️ for the Time-Series community.*
 
+```
+
+### Final setup steps:
+1.  **Replace** `yourusername` and `your-repo-name` with your actual GitHub info.
+2.  **Enable GitHub Pages** in your repository settings (Settings > Pages) if you decide to upload an `results_demo.html` file later.
+3.  **Commit and Push** this file. The Mermaid diagram and badges will render automatically.
+
+```
