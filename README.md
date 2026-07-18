@@ -79,8 +79,8 @@ Ensure you have Python 3.10+ installed.
 
 ```bash
 # 1. Clone the repository
-git clone [https://github.com/yourusername/your-repo-name.git](https://github.com/yourusername/your-repo-name.git)
-cd your-repo-name
+git clone [https://github.com/phamdps/multimodalfm.git](https://github.com/phamdps/multimodalfm.git)
+cd multimodalfm
 
 # 2. Setup virtual environment
 python -m venv venv
