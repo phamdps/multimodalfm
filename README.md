@@ -53,17 +53,6 @@ graph LR
 
 ```
 
-## ⚡ Interactive Demos
-
-We provide interactive performance dashboards hosted via GitHub Pages to visualize model behavior:
-
-| Dashboard | Description |
-| --- | --- |
-| **[Interactive Benchmark Results](https://phamdps.github.io/multimodalfm/results_demo.html)** | Browser-based Plotly charts for zoomable results. |
-| **[Live Training Metrics](https://wandb.ai/yourusername/your-project)** | Real-time experiment tracking via Weights & Biases. |
-
----
-
 ## 📂 Project Structure
 
 ```bash
@@ -145,16 +134,3 @@ python scripts/eval.py --benchmark TIME --data_path ./data/TIME
 ## 📜 License
 
 This project is licensed under the MIT License. See the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
-
----
-
-*Created with ❤️ for the Time-Series community.*
-
-```
-
-### Final setup steps:
-1.  **Replace** `yourusername` and `your-repo-name` with your actual GitHub info.
-2.  **Enable GitHub Pages** in your repository settings (Settings > Pages) if you decide to upload an `results_demo.html` file later.
-3.  **Commit and Push** this file. The Mermaid diagram and badges will render automatically.
-
-```
