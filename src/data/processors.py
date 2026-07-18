@@ -1,32 +1,27 @@
+import pandas as pd
 import torch
 import numpy as np
-from typing import Dict, Tuple
 
 class DataProcessor:
-    """
-    Handles preprocessing and transformation of multimodal data.
-    """
-    def __init__(self, target_len: int = 50):
-        self.target_len = target_len
+    def __init__(self, target_col='OT'):
+        self.target_col = target_col
 
-    def prepare_time_series(self, data: np.ndarray) -> torch.Tensor:
-        """
-        Ensures time-series data is the correct length and format.
-        """
-        # Convert to tensor and add channel dim if missing
-        tensor = torch.tensor(data, dtype=torch.float32)
-        if tensor.dim() == 2:
-            tensor = tensor.unsqueeze(-1)  # [Batch, Seq, 1]
-        return tensor
+    def load_etth1(self, path):
+        """Loads and normalizes ETTh1 data."""
+        df = pd.read_csv(path)
+        # Assuming 'date' is the timestamp column
+        df['date'] = pd.to_datetime(df['date'])
+        data = df.drop(columns=['date']).values
+        
+        # Simple Z-score normalization
+        mean = data.mean(axis=0)
+        std = data.std(axis=0)
+        data = (data - mean) / std
+        return torch.tensor(data, dtype=torch.float32)
 
-    def prepare_context(self, context_data: np.ndarray) -> torch.Tensor:
-        """
-        Converts auxiliary metadata to tensors.
-        """
-        return torch.tensor(context_data, dtype=torch.float32)
-
-    def create_batch(self, ts_data: np.ndarray, ctx_data: np.ndarray) -> Tuple[torch.Tensor, torch.Tensor]:
-        """
-        Helper to prepare a full batch for the model.
-        """
-        return self.prepare_time_series(ts_data), self.prepare_context(ctx_data)
+    def prepare_batch(self, data, context, seq_len=48):
+        """Creates sliding window batches."""
+        # This is a simplified batcher for demonstration
+        ts_input = data[:seq_len, :] # Numerical history
+        ctx_input = context[:10, :]  # Simulated contextual info
+        return ts_input.unsqueeze(0), ctx_input.unsqueeze(0)

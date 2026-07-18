@@ -1,25 +1,27 @@
 import torch
 import torch.nn as nn
 
-class CrossModalFusion(nn.Module):
-    def __init__(self, ts_dim, context_dim, embed_dim):
-        super(CrossModalFusion, self).__init__()
-        # Projections to align different modalities to the same embedding dimension
-        self.ts_proj  = nn.Linear(ts_dim, embed_dim)
-        self.ctx_proj = nn.Linear(context_dim, embed_dim)
+class AdvancedGatedFusion(nn.Module):
+    def __init__(self, embed_dim: int):
+        super().__init__()
+        # Cross-attention to align context to time-series
+        self.cross_attn = nn.MultiheadAttention(embed_dim, num_heads=4, batch_first=True)
         
-        # Cross-Attention mechanism
-        self.cross_attn = nn.MultiheadAttention(embed_dim=embed_dim, num_heads=4, batch_first=True)
-        
-        # Final output layer
-        self.fc = nn.Linear(embed_dim, embed_dim)
+        # Gating mechanism to determine context importance
+        self.gate = nn.Sequential(
+            nn.Linear(embed_dim * 2, embed_dim),
+            nn.Sigmoid()
+        )
+        self.norm = nn.LayerNorm(embed_dim)
 
-    def forward(self, ts_input, ctx_input):
-        # Project inputs
-        ts_feat  = self.ts_proj(ts_input)   # [Batch, SeqLen, Embed]
-        ctx_feat = self.ctx_proj(ctx_input) # [Batch, CtxLen, Embed]
+    def forward(self, ts_feat: torch.Tensor, ctx_feat: torch.Tensor) -> torch.Tensor:
+        # Cross-attention: TS as Query, Context as Key/Value
+        attn_out, _ = self.cross_attn(ts_feat, ctx_feat, ctx_feat)
         
-        # Use Time-Series as Query, Context as Key/Value
-        fused, _ = self.cross_attn(ts_feat, ctx_feat, ctx_feat)
+        # Gating: Combine attn_out with original TS features
+        combined = torch.cat([attn_out, ts_feat], dim=-1)
+        gate_weight = self.gate(combined)
         
-        return self.fc(fused)
+        # Residual fusion with learned gating
+        fused = self.norm(ts_feat + (gate_weight * attn_out))
+        return fused
