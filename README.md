@@ -1,2 +1,3 @@
-# multimodalfm
-Multimodal Foundation Models
+# Multimodal Time-Series Foundation Model (M-TSFM)
+
+...
